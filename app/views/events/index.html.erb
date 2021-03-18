@@ -1,0 +1,74 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Les Diners</h1>
+<% @events.each do |event| %>
+  <div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">Le diner chez <%= event.id %></h5>
+      <h6 class="card-subtitle mb-2 text-muted">Vous êtes <%= event.nb_participants %> à y participer et il est <%= event.status %>.</h6>
+      <% if event.status == 'done' %>
+        <p class="card-text">Il a récolté <%= event.surveys.sum{|survey| survey.total} %> points !</p>
+      <% end %>
+      <a><%= link_to 'Voir les détails', event %></a>
+      <a><%= link_to 'Le modifier', edit_event_path(event) %></a>
+      <a><%= link_to 'Ou le détruire', event, method: :delete, data: { confirm: 'Are you sure?' } %></a>
+    </div>
+  </div>
+  <br/>
+<% end %>
+
+
+<table>
+  <thead>
+    <tr>
+      <th>Le diner chez</th>
+      <th>dans quel état se trouve le diner</th>
+      <th>quels sont les points récoltés lors de ce diner</th>
+      <th>A table vous étiez</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+  
+  <tbody>
+    <% @events.each do |event| %>
+      <% if event.status == 'done' %>
+        <tr>
+          <td>n° <%= event.id %><td>
+          <td><%= event.status %></td>
+          <td><%= event.surveys.sum{|survey| survey.total} %></td>
+          <td><%= event.nb_participants %></td>
+          <td><%= link_to 'Show', event %></td>
+          <td><%= link_to 'Edit', edit_event_path(event) %></td>
+          <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% else if event.status == 'planned'%>
+        <tr>  
+          <td>n° <%= event.id %></td> 
+          <td><%= event.status %></td>
+          <td>en attente de réalisation</td>
+          <td>X</td>
+          <td><%= event.nb_participants %></td>
+          <td><%= link_to 'Show', event %></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <% else %>
+          <tr>
+            <td>n° <%= event.id %> </td>
+            <td><%= event.status %></td>
+            <td>en attente de remplissementage des invités</td>
+            <td>X</td>
+            <td><%= event.nb_participants %></td>
+            <td><%= link_to 'Show', event %></td>
+            <td></td>
+            <td></td>
+          </tr>
+        <% end %>
+      <% end %>
+
+    <% end %>
+  </tbody>
+</table>
+<br>
+
+<%= link_to 'New Event', new_event_path %>
