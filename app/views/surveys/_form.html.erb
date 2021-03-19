@@ -12,21 +12,21 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :tasty %>
+    <%= form.label 'le goût' %>
     <%= form.number_field :tasty %>
   </div>
 
   <div class="field">
-    <%= form.label :presentation %>
+    <%= form.label 'la présentation' %>
     <%= form.number_field :presentation %>
   </div>
 
   <div class="field">
-    <%= form.label :atmosphere %>
+    <%= form.label "L'ambiance" %>
     <%= form.number_field :atmosphere %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit 'Soumettre la grille'%>
   </div>
 <% end %>

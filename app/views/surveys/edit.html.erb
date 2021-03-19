@@ -1,6 +1,7 @@
-<h1>Editing Survey</h1>
+<h1>Editer la grille de notation</h1>
+<p>Evaluation du repas n° <%= @survey.event_id %> selon les critères suivants :</p>
 
 <%= render 'form', survey: @survey %>
 
-<%= link_to 'Show', @survey %> |
-<%= link_to 'Back', surveys_path %>
+<%= link_to 'La voir', @survey %> |
+<%= link_to 'Retour', events_path %>

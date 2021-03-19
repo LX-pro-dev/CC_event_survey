@@ -1,24 +1,25 @@
 <p id="notice"><%= notice %></p>
-
+<h1> Voici la grille de notation n°<%= @survey.id %> du repas n° <%= @survey.event_id %></h1>
+<p>&Eacutevaluation du repas selon les critères suivants : </p>
 <p>
-  <strong>Tasty:</strong>
+  <strong>Le goût :</strong>
   <%= @survey.tasty %>
 </p>
 
 <p>
-  <strong>Presentation:</strong>
+  <strong>La présentation :</strong>
   <%= @survey.presentation %>
 </p>
 
 <p>
-  <strong>Atmosphere:</strong>
+  <strong>L'ambiance :</strong>
   <%= @survey.atmosphere %>
 </p>
 
 <p>
-  <strong>Total:</strong>
+  <strong>Total des points accordés à ce repas :</strong>
   <%= @survey.total %>
 </p>
 
-<%= link_to 'Edit', edit_survey_path(@survey) %> |
-<%= link_to 'Back', surveys_path %>
+<%= link_to 'La modifier', edit_survey_path(@survey) %> |
+<%= link_to 'Retour', events_path %>

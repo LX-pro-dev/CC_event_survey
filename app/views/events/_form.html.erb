@@ -10,11 +10,11 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= form.label :status %>
-    <%= form.text_field :status %>
-  </div>
+  <% Event::STATUSES.each do |status| %>
+    <td><%= link_to change_status_event_path(@event, status: status), class: "btn btn-primary", method: :patch do %>
+      <%= status %></td>
+    <% end %>
+  <% end %>
 
   <div class="field">
     <%= form.label :nb_participants %>
@@ -22,6 +22,6 @@
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit 'Enregistrer'%>
   </div>
 <% end %>
