@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :questions
   resources :surveys
   resources :events do
     member do

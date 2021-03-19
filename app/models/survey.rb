@@ -1,12 +1,9 @@
 class Survey < ApplicationRecord
   belongs_to :event
-
-  validates :tasty, :presentation, :atmosphere,
-    numericality: { greater_than: 0, less_than_or_equal_to: 4 }
-
+  has_many :questions, dependent: :destroy
   
   def total
-    tasty + atmosphere + presentation
+   questions.sum(:score)
   end
 
 end

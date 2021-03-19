@@ -9,14 +9,22 @@
 Event.destroy_all
 
 5.times do |i|
-  Event.create(status: 'done', total_event: 0, nb_participants: 4)
+  Event.create(status: 'terminé', total_event: 0, nb_participants: 4)
 end
 
+
 20.times do |i|
-  ta = rand(1..4)
-  p = rand(1..4)
-  a = rand(1..4)
-  tot = a + p + ta
+  
+  
   id = Event.last.id.to_i
-  Survey.create(event_id: (id - (i%5)), tasty: ta, presentation: p, atmosphere: a, total: tot)
+  e = Event.find(id - (i%5))
+  s = Survey.create(event_id: (id - (i%5)))
+ 
+  q1 = Question.create(title: 'le goût', score: rand(1..4), description: "Alors, comment c'était bon ?", survey_id: s.id)
+  q2 = Question.create(title: 'la présentation', score: rand(1..4), description: "Alors, comment c'était joliment présenté ?", survey_id: s.id)
+  q3 = Question.create(title: "l'ambiance", score: rand(1..4), description: "Alors, comment c'était ambiancé ?", survey_id: s.id)
+  
+  tot = q1.score + q2.score + q3.score
+  e.update(id: id - (i%5), total_event: tot, nb_participants: 4)
+  s.save
 end
