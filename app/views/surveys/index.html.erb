@@ -1,6 +1,23 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Les grilles de notation des repas</h1>
+<% @surveys.sort_by(&:event_id).each do |survey| %>
+  <div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">La grille de notation du <%= survey.id %> chez <%= survey.event_id %></h5>
+      <h6 class="card-subtitle mb-2 text-muted">le repas fut-il bon, ambiancé et bien présenté ? Voici les notes : </h6>
+        <% survey.questions.each do |question| %>
+          <h6><%= question.title %> : <%= question.score %></h6>
+        <% end %> 
+        <p><%= survey.total %> points ont donc été accordés par <%= survey.id %> !</p>
+      
+      <a><%= link_to 'Voir les détails', survey %></a>
+      <a><%= link_to 'La modifier', edit_survey_path(survey) %></a>
+      <a><%= link_to 'Ou la détruire', survey, method: :delete, data: { confirm: 'Are you sure?' } %></a>
+    </div>
+  </div>
+  <br/>
+<% end %>
 
 <table>
   <thead>
@@ -18,9 +35,9 @@
     <% @surveys.each do |survey| %>
       <tr>
         <td>n° <%= survey.id %></td>
-        <td><%= survey.tasty %></td>
-        <td><%= survey.presentation %></td>
-        <td><%= survey.atmosphere %></td>
+        <% survey.questions.each do |question| %>
+          <td><%= question.score %></td>
+        <% end %>
         <td><%= survey.total %></td>
         <td><%= link_to 'Voir la grille', survey %></td>
         <td><%= link_to 'La modifier', edit_survey_path(survey) %></td>

@@ -5,16 +5,19 @@
 <table>
   <thead>
     <tr>
+      <th>Id</th>
+      <th>survey.id</th>
       <th>Title</th>
       <th>Score</th>
       <th>Description</th>
       <th colspan="3"></th>
     </tr>
   </thead>
-
   <tbody>
     <% @questions.each do |question| %>
       <tr>
+        <th><%= question.id %>
+        <th><%= question.survey_id %>
         <td><%= question.title %></td>
         <td><%= question.score %></td>
         <td><%= question.description %></td>

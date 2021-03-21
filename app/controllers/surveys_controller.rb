@@ -13,6 +13,7 @@ class SurveysController < ApplicationController
   # GET /surveys/new
   def new
     @survey = Survey.new
+        
   end
 
   # GET /surveys/1/edit
@@ -22,9 +23,13 @@ class SurveysController < ApplicationController
   # POST /surveys or /surveys.json
   def create
     @survey = Survey.new(survey_params)
+    Question.create(title: 'Le goût', score: 1, description: 'Le repas était-il bon ?', survey_id: @survey.id)
+    Question.create(title: "L'ambiance", score: 1, description: 'Y avait-il une bonne ambiance lors du repas ?', survey_id: @survey.id)
+    Question.create(title: 'La présentation', score: 1, description: 'Y a-t-il eu un effort de présentation lors du repas ?', survey_id: @survey.id)
 
     respond_to do |format|
       if @survey.save
+        
         format.html { redirect_to @survey, notice: "Survey was successfully created." }
         format.json { render :show, status: :created, location: @survey }
       else
@@ -64,6 +69,6 @@ class SurveysController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def survey_params
-      params.require(:survey).permit(:tasty, :presentation, :atmosphere, :total)
+      params.require(:survey).permit(:total)
     end
 end

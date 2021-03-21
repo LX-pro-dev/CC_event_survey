@@ -1,4 +1,4 @@
-<%= form_with(model: survey) do |form| %>
+<%= form_with(model: survey, local: true) do |form| %>
   <% if survey.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(survey.errors.count, "error") %> prohibited this survey from being saved:</h2>
@@ -11,20 +11,14 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label 'le goût' %>
-    <%= form.number_field :tasty %>
-  </div>
-
-  <div class="field">
-    <%= form.label 'la présentation' %>
-    <%= form.number_field :presentation %>
-  </div>
-
-  <div class="field">
-    <%= form.label "L'ambiance" %>
-    <%= form.number_field :atmosphere %>
-  </div>
+ 
+  <% survey.questions.each do |question| %>
+    <div class="field">
+      <%= form.label question.title %>
+      <%= form.number_field question.score %>
+    </div>
+  <% end %>
+  
 
   <div class="actions">
     <%= form.submit 'Soumettre la grille'%>

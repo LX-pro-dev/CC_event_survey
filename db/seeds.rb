@@ -14,17 +14,10 @@ end
 
 
 20.times do |i|
-  
-  
   id = Event.last.id.to_i
   e = Event.find(id - (i%5))
   s = Survey.create(event_id: (id - (i%5)))
- 
-  q1 = Question.create(title: 'le goût', score: rand(1..4), description: "Alors, comment c'était bon ?", survey_id: s.id)
-  q2 = Question.create(title: 'la présentation', score: rand(1..4), description: "Alors, comment c'était joliment présenté ?", survey_id: s.id)
-  q3 = Question.create(title: "l'ambiance", score: rand(1..4), description: "Alors, comment c'était ambiancé ?", survey_id: s.id)
-  
-  tot = q1.score + q2.score + q3.score
-  e.update(id: id - (i%5), total_event: tot, nb_participants: 4)
-  s.save
+  Question.create(title: 'Le goût', score: 1, description: 'Le repas était-il bon ?', survey_id: s.id)
+  Question.create(title: "L'ambiance", score: 1, description: 'Y avait-il une bonne ambiance lors du repas ?', survey_id: s.id)
+  Question.create(title: 'la présentation', score: 1, description: 'Y a-t-il eu un effort de présentation lors du repas ?', survey_id: s.id)
 end

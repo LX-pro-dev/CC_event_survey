@@ -26,7 +26,7 @@ class EventsController < ApplicationController
     
     respond_to do |format|
       if @event.save
-        if(@event.status == 'done')
+        if(@event.status == 'terminé')
           (@event.nb_participants-1).times do |i|
             Survey.create(event_id: @event.id)
           end

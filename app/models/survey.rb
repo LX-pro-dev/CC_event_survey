@@ -3,7 +3,7 @@ class Survey < ApplicationRecord
   has_many :questions, dependent: :destroy
   
   def total
-   questions.sum(:score)
+   questions.sum { |question| question.score }
   end
 
 end
